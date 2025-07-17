@@ -1,14 +1,3 @@
-
-//ARQUIVO NA PASTA TELAS COM NOME "CadastroMetaView"
-
-//
-//  CadastroMetaView.swift
-//  DALIA
-//
-//  Created by found on 17/07/25.
-//
-
-
 import SwiftUI
 import SwiftData
 
@@ -18,7 +7,7 @@ struct CadastroMetaView: View {
 
     // Campos do formulário
     @State private var titulo: String = ""
-    @State private var tempoAlvoEmMinutos: String = ""
+    @State private var tempoAlvoEmHoras: String = ""
     @Query(sort: \Materia.nome) var materias: [Materia]
     @State private var materiaSelecionada: Materia? = nil
 
@@ -31,9 +20,9 @@ struct CadastroMetaView: View {
                     TextField("Ex: Estudar Álgebra", text: $titulo)
                 }
 
-                Section(header: Text("Tempo alvo (em minutos)")) {
-                    TextField("Ex: 300", text: $tempoAlvoEmMinutos)
-                        .keyboardType(.numberPad)
+                Section(header: Text("Tempo alvo (em horas)")) {
+                    TextField("Ex: 5", text: $tempoAlvoEmHoras)
+                        .keyboardType(.decimalPad)
                 }
 
                 Section(header: Text("Matéria relacionada")) {
@@ -48,7 +37,7 @@ struct CadastroMetaView: View {
                 Button("Salvar Meta") {
                     salvarMeta()
                 }
-                .disabled(titulo.isEmpty || tempoAlvoEmMinutos.isEmpty)
+                .disabled(titulo.isEmpty || tempoAlvoEmHoras.isEmpty)
             }
             .navigationTitle("Nova Meta")
             .alert("Preencha todos os campos corretamente.", isPresented: $showAlert) {
@@ -58,7 +47,7 @@ struct CadastroMetaView: View {
     }
 
     func salvarMeta() {
-        guard let tempo = Double(tempoAlvoEmMinutos) else {
+        guard let horas = Double(tempoAlvoEmHoras) else {
             showAlert = true
             return
         }
@@ -66,12 +55,10 @@ struct CadastroMetaView: View {
         let novaMeta = Meta(
             titulo: titulo,
             materia: materiaSelecionada,
-            tempoAlvo: tempo * 60 // converte minutos para segundos
+            tempoAlvo: horas * 3600 // converte horas para segundos
         )
 
         modelContext.insert(novaMeta)
         dismiss()
     }
 }
-
-
