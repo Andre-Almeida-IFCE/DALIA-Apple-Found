@@ -82,9 +82,9 @@ extension Color {
     }
 }
 
-#Preview {
-    ListaMateriasView()
-}
+//#Preview {
+//    ListaMateriasView()
+//}
 
 
 struct BotaoAddMateriaView: View {
