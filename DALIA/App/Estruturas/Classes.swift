@@ -38,7 +38,7 @@ class SessaoEstudo {
 class Meta {
     var titulo: String
     var materia: Materia?
-    var tempoAlvo: TimeInterval // tempo em segundos
+    var tempoAlvo: TimeInterval
     var criadoEm: Date
 
     init(titulo: String, materia: Materia?, tempoAlvo: TimeInterval, criadoEm: Date = .now) {
@@ -48,9 +48,8 @@ class Meta {
         self.criadoEm = criadoEm
     }
 
-    // Computado (soma total do tempo estudado)
+    // Simulando progresso até conectar com sessões de estudo
     var progressoAtual: TimeInterval {
-        // Para implementar depois, com consultas ao SwiftData
-        return 0
+        return tempoAlvo * 0.65 // 65% feito, só para visualização
     }
 }
